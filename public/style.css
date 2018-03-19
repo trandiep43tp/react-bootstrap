@@ -1,0 +1,17 @@
+body{
+    background-color: rgb(184, 172, 172);
+}
+
+div.row{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div.panel.panel-heading{
+   /* background-color: red; */
+    margin: 0;
+}
+div.panel.panel-body{
+  /*  background-color: yellow; */
+    margin: 0;
+}
