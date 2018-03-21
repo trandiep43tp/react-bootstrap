@@ -15,13 +15,13 @@ class Hello extends Component {
             {
                 name: 'Angular 4x',
                 time: '50h',
-                free: false,
+                free: true,
                 desc: 'Angular 4x js is very simple'
             },
             {
-                name:'Node js',
+                name:'Node js1234',
                 time: '70h',
-                free: true                
+                free: false                
             }
         ];
         //items.map((el,key) => console.log(el));
