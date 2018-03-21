@@ -19,18 +19,19 @@ class Hello extends Component {
                 desc: 'Angular 4x js is very simple'
             },
             {
-                name: React,
+                name: 'React',
                 time: '30h',
                 free: true                
             }
         ];
-        items.map((el,key) => console.log(el));
+        //items.map((el,key) => console.log(el));
 
         //tạo ra một elemnt để hứng khi duyệt
         const elementCourse=items.map((element,index) =>
-            <Course key={index} tieude="12345" >12344 </Course>
+            <Course key={index} tieude={element.name} time={element.time} free={element.free}>{element.desc} </Course>
         );
 
+        
         return(
             <div className="row">               
                  {elementCourse}               
