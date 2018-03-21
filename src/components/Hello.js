@@ -19,8 +19,8 @@ class Hello extends Component {
                 desc: 'Angular 4x js is very simple'
             },
             {
-                name: 'React',
-                time: '30h',
+                name:'Node js',
+                time: '70h',
                 free: true                
             }
         ];
@@ -28,7 +28,7 @@ class Hello extends Component {
 
         //tạo ra một elemnt để hứng khi duyệt
         const elementCourse=items.map((element,index) =>
-            <Course key={index} tieude={element.name} time={element.time} free={element.free}>{element.desc} </Course>
+            <Course key={index} tieude={element.name} time={element.time} free={element.free} >{element.desc} </Course>
         );
 
         
