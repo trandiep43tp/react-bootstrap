@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import $ from 'jquery';   //dùng lệnh npm install jquery trước
+
 class Course extends Component {
     constructor(props){
         super(props);
@@ -15,9 +17,12 @@ class Course extends Component {
     }
 
     click3(){
-        alert(this.props.tieude);
+        //alert("sử dụng jquery");
+        $("h3.panel-title").css('font-weight','bold');
+        $("p").css('font-weight','bold');
     }
-        
+
+    
     click4(){
         alert(this.refs.username.value);
     }
@@ -28,7 +33,7 @@ class Course extends Component {
             elementShow=<div className="panel panel-footer"   >
                             <button className="btn btn-primary" onClick={this.click1}>Click 1</button>
                             <button className="btn btn-danger" onClick={() => this.click2("Click2")}>Click 2</button>
-                            <button className="btn btn-success" onClick={this.click3}>Click 3</button>
+                            <button className="btn btn-success" id="button" onClick={this.click3}>Use JQuery</button>
                         </div>;
         }else{
             elementShow=<div className="input-group" >
