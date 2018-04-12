@@ -10,7 +10,6 @@ class Control extends Component {
             showAdd: true
         }
         this.handleAdd=this.handleAdd.bind(this);
-      
     }
 
     handleAdd(){
@@ -21,6 +20,11 @@ class Control extends Component {
     }
     
     render(){
+        let elementAddTask = <button type="button" className="btn btn-info btn-block" onClick={this.handleAdd}>Add Task</button>;
+        if(this.props.isShowForm ===true){
+            elementAddTask = <button type="button" className="btn btn-success btn-block" onClick={this.handleAdd}>Close Form</button>;
+        }
+
         return (
             <div className="row">
                     <Search />
@@ -28,8 +32,8 @@ class Control extends Component {
                     <Sort />
                 {/* /SORT*/}
                 {/*ADD*/}
-                <div className="col-xs-5 col-sm-5 col-md-5" style={{visibility: this.state.showAdd? 'show': 'hidden'}}>
-                     <button type="button" className="btn btn-info btn-block" onClick={this.handleAdd}>Add Task</button>
+                <div className="col-xs-5 col-sm-5 col-md-5" >
+                     {elementAddTask}
                 </div>
                 {/* /ADD*/}                    
             </div>

@@ -24,7 +24,9 @@ class Todolist extends Component{
     }
 
     showAddTask(){
-        alert('showAddTask');
+        this.setState({
+            isShowForm: false
+        });
     }
     
     render(){
@@ -41,7 +43,10 @@ class Todolist extends Component{
                 {/* /Tiêu đề*/}
 
                 {/*Control*/}
-                    <Control onClickAdd={this.handleToggle} />
+                    <Control 
+                        onClickAdd={this.handleToggle} 
+                        isShowForm={this.state.isShowForm}
+                    />
                 {/* /Control*/}
 
                 {/*FORM*/}
