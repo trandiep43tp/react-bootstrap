@@ -12,11 +12,16 @@ class Todolist extends Component{
         super(props);
         this.state={
             item: item,   //lấy dữ liệu từ file js bên ngoài
-            isShowForm: false
+            isShowForm: false,
+            search:'ssssss'
         }
+
+        console.log(this.state.search);
         this.handleToggle=this.handleToggle.bind(this);
         this.showAddTask=this.showAddTask.bind(this);
+        this.handlesearch = this.handleSearch.bind(this);
     }
+
     handleToggle(){
         this.setState({
             isShowForm: !this.state.isShowForm
@@ -26,11 +31,20 @@ class Todolist extends Component{
     showAddTask(){
         this.setState({
             isShowForm: false
+           // search: ''
         });
+    }
+
+    handleSearch(val){
+        console.log(val);
+        
+        this.setState({
+            search: val
+        });        
     }
     
     render(){
-       // console.log(this.state.item);
+        console.log(this.state.search);
         let item=this.state.item;   //tạo một biến item để hứng dữ liệu từ this.state
         let elementForm=null;
         if(this.state.isShowForm){
@@ -46,6 +60,7 @@ class Todolist extends Component{
                     <Control 
                         onClickAdd={this.handleToggle} 
                         isShowForm={this.state.isShowForm}
+                        onClickSearch={this.handleSearch}
                     />
                 {/* /Control*/}
 
