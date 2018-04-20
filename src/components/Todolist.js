@@ -13,13 +13,11 @@ class Todolist extends Component{
         this.state={
             item: item,   //lấy dữ liệu từ file js bên ngoài
             isShowForm: false,
-            search:'ssssss'
+            search:''
         }
-
-        console.log(this.state.search);
         this.handleToggle=this.handleToggle.bind(this);
         this.showAddTask=this.showAddTask.bind(this);
-        this.handlesearch = this.handleSearch.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
     handleToggle(){
@@ -31,21 +29,36 @@ class Todolist extends Component{
     showAddTask(){
         this.setState({
             isShowForm: false
-           // search: ''
         });
     }
 
-    handleSearch(val){
-        console.log(val);
-        
+    handleSearch(val){               
         this.setState({
             search: val
-        });        
+        });       
     }
     
     render(){
-        console.log(this.state.search);
-        let item=this.state.item;   //tạo một biến item để hứng dữ liệu từ this.state
+        //console.log(this.state.search);
+        let itemOrigin = this.state.item;  //tạo một biến item để hứng dữ liệu từ this.state
+        let items = [];
+        let search = this.state.search.toLowerCase();
+        console.log(search);
+
+        if(search.length >0){
+            itemOrigin.forEach(
+                ( item ) => {
+                    if(item.name.toLowerCase().indexOf(search) !== -1){
+                        items.push(item);
+                    }                   
+                }
+            );
+        }else{
+            items = itemOrigin;
+        }
+        
+          
+        
         let elementForm=null;
         if(this.state.isShowForm){
             elementForm= <Form onClick={this.showAddTask}/>
@@ -69,7 +82,7 @@ class Todolist extends Component{
                 {/*/FORM*/}
 
                 {/*LIST START*/}
-                    <List item={item} />    {/* truyền dữ liệu sang component list*/}
+                    <List item={items} />    {/* truyền dữ liệu sang component list*/}
                 {/* /LIST START*/}
 
             </div>             

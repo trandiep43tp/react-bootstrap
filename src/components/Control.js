@@ -16,7 +16,7 @@ class Control extends Component {
     }
     
     handleSearch(val){
-        //console.log(val);
+       // console.log(val);
         this.props.onClickSearch(val);
     }
 

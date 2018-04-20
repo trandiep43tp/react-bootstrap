@@ -4,7 +4,7 @@ class Search extends Component {
    constructor(props){
         super(props);
         this.state={
-            strSearch: '123'
+            strSearch: ''
         }
         this.handleSearch = this.handleSearch.bind(this);
         this.handleClear = this.handleClear.bind(this);
@@ -12,7 +12,7 @@ class Search extends Component {
 
    }
 
-    handleSearch(val){
+    handleSearch(){
         //console.log(123);
         this.props.onClickSearch(this.state.strSearch);
     }
