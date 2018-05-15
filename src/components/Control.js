@@ -3,35 +3,43 @@ import Search from './Search';
 import Sort from './Sort';
 
 class Control extends Component {
-    constructor(props){
-       super(props);
-
-       this.handleAdd = this.handleAdd.bind(this);
-       this.handleSearch = this.handleSearch.bind(this);
-    }
-
-    handleAdd(){
-        this.props.onClickAdd();  //gọi hàm truyền từ component cha
-        
-    }
-    
-    handleSearch(val){
-       // console.log(val);
-        this.props.onClickSearch(val);
-    }
-
+      
+       
     render(){
-        let elementAddTask = <button type="button" className="btn btn-info btn-block" onClick={this.handleAdd}>Add Task</button>;
+        let { orderBy, orderDir} = this.props;     //cách khai biến ngắn gọn
+
+        let elementAddTask = <button 
+                                id       ="bb"
+                                type      = "button" 
+                                className = "btn btn-info btn-block" 
+                                onClick   = {this.props.onClickAdd}
+                             >
+                             Add Task
+                             </button>;
         
         if(this.props.isShowForm ===true){
-            elementAddTask = <button type="button" className="btn btn-success btn-block" onClick={this.handleAdd}>Close Form</button>;
+            elementAddTask = <button 
+                                 id       ="aa"
+                                type      = "button" 
+                                className = "btn btn-success btn-block" 
+                                onClick   = {this.props.onClickAdd}
+                             >
+                             Close Form
+                             </button>;
         }
 
         return (
             <div className="row">
-                    <Search onClickSearch={this.handleSearch} />
+                    <Search 
+                        onClickSearch  = {this.props.onClickSearch} 
+                        onclickClear   = {this.props.onclickClear}
+                    />
                 {/*SORT*/}
-                    <Sort />
+                    <Sort 
+                        orderBy     = { orderBy }
+                        orderDir    = { orderDir }
+                        onClickSort = {this.props.onClickSort}
+                    />
                 {/* /SORT*/}
                 {/*ADD*/}
                 <div className="col-xs-5 col-sm-5 col-md-5" >

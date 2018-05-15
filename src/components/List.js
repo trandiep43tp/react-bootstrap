@@ -8,15 +8,21 @@ class List extends Component{
         let    item        =this.props.item;
         const element_item =item.map((element,index) =>{
             return (
-                < Item key={index } item={element} ></Item>  // truyền dữ liêu sang component Item
+                < Item 
+                    key   = {index } 
+                    item  = {element} 
+                    onClickDelete = { this.props.onClickDelete} 
+                    onClickEdit   = { this.props.onClickEdit }
+                >
+                </Item>  // truyền dữ liêu sang component Item
             )            
         });
 
         return(                         
             <div className="panel panel-success">
-                <div className="panel-heading">List Task</div>
+                <div className="panel-heading" >List Task</div>
                 <table className="table table-hover">
-                    <thead>
+                    <thead >
                         <tr>
                             <th style={{width: '30%'}} className="text-center">#</th>
                             <th>Task</th>

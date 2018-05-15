@@ -13,7 +13,8 @@ ReactDOM.render(
          <div style={{clear: 'both'}}></div>
          <LifeCycle /> 
       */}
-        <Todolist />
+      
+      <Todolist /> 
     </div>
     , document.getElementById('root')
 );

@@ -7,22 +7,22 @@ const uuidv4 = require('uuid/v4');
 let item=[
     {
         id: uuidv4(),
-        name: "Công việc 1",
+        name: "đây là Công việc 1",
         level: 0  //0 small, 1 medium, 2 Hight
      },
      {
         id: uuidv4(),
-        name: "Công việc 2",
+        name: "Công việc 2 nặng nhọc",
         level: 1  //0 small, 1 medium, 2 Hight
      },
      {
         id: uuidv4(),
-        name: "Công việc 3",
+        name: "Công việc 3 thoải mái",
         level: 2  //0 small, 1 medium, 2 Hight
      },
      {
         id: uuidv4(),
-        name: "Công việc 3",
+        name: "Công việc 4 rất thoải mái",
         level: 2  //0 small, 1 medium, 2 Hight
      }
 ];

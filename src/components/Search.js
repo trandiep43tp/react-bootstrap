@@ -17,11 +17,7 @@ class Search extends Component {
         this.props.onClickSearch(this.state.strSearch);
     }
 
-    handleClear(){
-        this.setState({
-            strSearch: ''
-        });
-    }
+    
 
     handleChange(event){
         this.setState({
@@ -29,6 +25,13 @@ class Search extends Component {
         });
     }
     
+    handleClear(){        
+        this.setState({
+            strSearch: ''
+        })
+        this.props.onclickClear();
+    }
+
     render(){
         return (            
             <div className="col-xs-4 col-sm-4 col-md-4">
