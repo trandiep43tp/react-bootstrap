@@ -47,7 +47,7 @@ class Control extends Component {
                 </div>
                 {/* /ADD*/}                    
             </div>
-        )
+        );
     }
 }
 

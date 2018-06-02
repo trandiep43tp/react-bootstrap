@@ -16,15 +16,34 @@ class Form extends Component{
     }
 
     componentWillMount(){
+       // console.log('componentWillMount')
+        
         let item = this.props.itemEdit;        
-        if( item.id !== ''){
+        if( item !== null){
            this.setState({
+               taskId     : item.id,
+               taskName   : item.name,
+               taskLevel  : item.level               
+           })
+        }
+        
+    }
+
+    componentWillReceiveProps(nextProps){
+        
+        let item = nextProps.itemEdit;        
+        if( item !== null){
+           this.setState({
+               taskId     : item.id,
                taskName   : item.name,
                taskLevel  : item.level               
            })
         }
     }
 
+
+
+    
     showAdd(){
         //alert(123);
         this.props.onClickCancel();
@@ -39,24 +58,28 @@ class Form extends Component{
         
         this.setState({
              [name]: value
-        });        
+        });       
+        
     }
     
     handleSubmit(event) {
         
         //tạo một đối tượng
         let item = {
-            id       : this.state.id,
+            id       : this.state.taskId,
             taskName : this.state.taskName,
-            taskLevel: this.state.level
+            taskLevel: this.state.taskLevel
         }
         this.props.onClickSubmit(item);        
         
         event.preventDefault();
     }
 
+    
+
     render(){
-            console.log(this.props.itemEdit)
+       
+       // console.log(this.props.itemEdit)
         return(                             
             <div className="row" id = 'form' >                
                 <div className="col-md-offset-7 col-md-5">

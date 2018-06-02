@@ -15,7 +15,7 @@ class Todolist extends Component{
     constructor(props){
         super(props);
         this.state={
-            items       : item,   //lấy dữ liệu từ file js bên ngoài
+            items       : null,   //lấy dữ liệu từ file js bên ngoài
             isShowForm  : false,
             search      :'',
             orderBy     : 'name',
@@ -30,10 +30,34 @@ class Todolist extends Component{
         this.handleDelete     = this.handleDelete.bind(this);
         this.handelEdit       = this.handelEdit.bind(this);
         this.handelSubmmit    = this.handelSubmmit.bind(this);
+       
+    }
+
+    //lấy dữ liệu ban đầu
+    componentWillMount(){
+        this.setState({
+            items : item
+        })
+       
+        if (typeof(Storage) !== 'undefined') {
+            //lưu
+            localStorage.setItem('item', JSON.stringify(this.state.items) );
+
+            //get
+            let str = localStorage.getItem('javascript')
+            console.log(str)
+
+            //del
+            localStorage.removeItem('javascript')
+            localStorage.removeItem('item')
+        } else {
+            alert('Trình duyệt của bạn không hỗ trợ localStorage. Hãy nâng cấp trình duyệt để sử dụng!');
+        }
     }
 
     handleToggle(){
         this.setState({
+            itemEdit  : null,
             isShowForm: !this.state.isShowForm
         });
                      
@@ -76,31 +100,43 @@ class Todolist extends Component{
     }
 
     handelEdit(item){
+        //console.log(item)
         this.setState({
             itemEdit  : item,
             isShowForm: true
         })     
-
+        
     }
 
     handelSubmmit(item){
-        console.log(item.id) 
-        if(item.id ===''){
-            console.log("rỗng")
-        }       
-       let { items} = this.state;
-            
-            items.push({
-                id   : uuidv4(),
-                name : item.taskName,
-                level: item.taskLevel
-            })
+        //console.log(item) 
+        let { items} = this.state;
+        let id = null;
+        if(item.id ===''){            
+            id = uuidv4();
+        }else{
+            items = _.reject(items,{ id: item.id})     // loại bỏ đối tượng có id = item.id ra khoi item
+            id= item.id;
+        }          
+                  
+        items.push({
+            id   : id,
+            name : item.taskName,
+            level: parseInt(item.taskLevel,0)
+        })
       
       
        this.setState({
-           items: items
+          
+           isShowForm : false,
+           items      : items
        })
+
     }
+
+
+    
+
 
     render(){
         //console.log(this.state.items);
@@ -108,13 +144,16 @@ class Todolist extends Component{
         let items                         = [];       
         let { orderBy, orderDir, search, itemEdit } = this.state;             // cách viết ngắn gọn 
         let elementForm                   = null;
-        
+       // console.log( itemEdit)
 
       /*
             cách sử dụng lodash
             cài lodash: npm i --save lodash
             import lodash vào import _ from 'lodash'
       */
+
+     
+
         if(search.length >0){
             items= _.filter(itemOrigin, (item)=>  {
                 return _.includes(item.name.toLowerCase(), search.toLowerCase());
@@ -153,7 +192,7 @@ class Todolist extends Component{
 
 
         return(                                 
-            <div className="row">               
+            <div >               
                 {/*Tiêu đề*/}
                      <Title />
                 {/* /Tiêu đề*/}
