@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
+import { connect }          from 'react-redux';
+import { search, clear } from './../redux/actions/action';
+
 
 class Search extends Component {
    constructor(props){
         super(props);
         this.state={
-            strSearch: ''
+            strSearch: this.props.strSearch
         }
         this.handleSearch = this.handleSearch.bind(this);
         this.handleClear = this.handleClear.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
    }
 
     handleSearch(){
-        //console.log(123);
-        this.props.onClickSearch(this.state.strSearch);
-    }
-
-    
+        this.props.goSearch(this.state.strSearch);
+    }    
 
     handleChange(event){
         this.setState({
@@ -25,14 +24,15 @@ class Search extends Component {
         });
     }
     
-    handleClear(){        
+    handleClear(){   
         this.setState({
             strSearch: ''
-        })
-        this.props.onclickClear();
+        });       
+        this.props.goClear();
     }
 
     render(){
+        console.log(this.props)
         return (            
             <div className="col-xs-4 col-sm-4 col-md-4">
                 <div className="input-group">
@@ -53,4 +53,22 @@ class Search extends Component {
     }
 }
 
-export default Search;
+const mapStatetoProps = state =>{       
+    return {
+       strSearch : state.search
+    }
+}
+
+const mapDispatchtoProps = ( dispatch, ownProps) =>{    
+    return {
+       goSearch: (val) =>{          
+          dispatch(search(val))
+        },
+       goClear: () =>{
+           dispatch(clear())
+       }
+    }
+}
+
+export default connect(mapStatetoProps, mapDispatchtoProps) (Search);
+

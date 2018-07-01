@@ -6,7 +6,7 @@ class Title extends Component {
     render(){
         return (
             <div className="page-header">
-                <h1>Chương 1<small>React js</small></h1>
+                <h1>Chương 1<small>React js - Redux</small></h1>
             </div>
         )
     }

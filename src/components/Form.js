@@ -1,4 +1,7 @@
 import React, { Component} from 'react';
+import { close_form, submitForm } from './../redux/actions/action';
+import { connect }         from 'react-redux';
+
 
 class Form extends Component{
     constructor(props){
@@ -7,25 +10,22 @@ class Form extends Component{
             taskId       : '',
             taskName     :   '',
             taskLevel    :   0
-        }
-
-       
-        this.showAdd       = this.showAdd.bind(this);
+        }   
+        
         this.handleChange  = this.handleChange.bind(this);
         this.handleSubmit  = this.handleSubmit.bind(this);        
     }
 
     componentWillMount(){
-       // console.log('componentWillMount')
-        
+           
         let item = this.props.itemEdit;        
-        if( item !== null){
+        
            this.setState({
                taskId     : item.id,
                taskName   : item.name,
                taskLevel  : item.level               
            })
-        }
+        
         
     }
 
@@ -39,16 +39,8 @@ class Form extends Component{
                taskLevel  : item.level               
            })
         }
-    }
-
-
-
-    
-    showAdd(){
-        //alert(123);
-        this.props.onClickCancel();
         
-    }
+    }   
 
     handleChange(event) {
         const target = event.target;
@@ -62,24 +54,23 @@ class Form extends Component{
         
     }
     
-    handleSubmit(event) {
-        
+    handleSubmit(event) {        
         //tạo một đối tượng
         let item = {
             id       : this.state.taskId,
             taskName : this.state.taskName,
             taskLevel: this.state.taskLevel
         }
-        this.props.onClickSubmit(item);        
-        
+        this.props.formSubmit(item);      
         event.preventDefault();
     }
 
     
 
     render(){
-       
-       // console.log(this.props.itemEdit)
+       let { isShowForm } = this.props;
+       if( isShowForm === false ) return null;
+
         return(                             
             <div className="row" id = 'form' >                
                 <div className="col-md-offset-7 col-md-5">
@@ -97,7 +88,7 @@ class Form extends Component{
                             </select>
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
-                        <button type="button" className="btn btn-default" onClick={this.showAdd}>Cancel</button>
+                        <button type="button" className="btn btn-default" onClick={this.props.formCancel}>Cancel</button>
                     </form>
                 </div>
             </div>           
@@ -105,7 +96,29 @@ class Form extends Component{
     }
 }
 
-export default Form;
+const mapStatetoProps = state =>{    
+    return {
+       isShowForm : state.isShowForm,
+       itemEdit: state.itemEdit
+    }
+}
+
+const mapDispatchtoProps = ( dispatch, ownProps) =>{    
+    return {
+       formCancel: () =>{          
+          dispatch(close_form())
+        },
+        formSubmit: (item) =>{             //khi submit phải tực hiện 2 hành động
+            dispatch(submitForm(item));
+            dispatch(close_form())
+            
+        }
+
+    }
+}
+
+export default connect(mapStatetoProps, mapDispatchtoProps) (Form);
+
 
 
 

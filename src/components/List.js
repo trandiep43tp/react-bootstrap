@@ -1,18 +1,35 @@
 import React, { Component} from 'react';
-import Item from './Item';
+import Item                from './Item';
+import { connect }         from 'react-redux';
+import _ from 'lodash';    //import như thế nầy là import toàn bộ
+
 
 class List extends Component{
     
-    render(){
-        //console.log(this.props.item);   //lấy props từ todolist truyền vào
-        let    item        =this.props.item;
-        const element_item =item.map((element,index) =>{
+    render(){        
+        let   { itemOrigin, search }       = this.props;
+        let { by, value }                  = this.props.sort;
+        let items = null;
+       
+        //Search
+        if(search.length >0){
+            items= _.filter(itemOrigin, (item)=>  {
+                return _.includes(item.name.toLowerCase(), search.toLowerCase());
+              });
+        }else{
+            items= itemOrigin;
+        }
+
+        //sort
+        items = _.orderBy(items,[by],[value]);   //sử dụng lodash  
+        
+
+        const element_item =items.map((element,index) =>{
             return (
                 < Item 
                     key   = {index } 
-                    item  = {element} 
-                    onClickDelete = { this.props.onClickDelete} 
-                    onClickEdit   = { this.props.onClickEdit }
+                    item  = {element}                     
+                    
                 >
                 </Item>  // truyền dữ liêu sang component Item
             )            
@@ -39,7 +56,16 @@ class List extends Component{
     }
 }
 
-export default List;
+const mapStatetoProps = state =>{
+    //console.log(state);
+    return {
+        itemOrigin  : state.task,
+        search      : state.search,
+        sort        : state.sort
+    }
+}
+
+export default connect(mapStatetoProps, null) (List);
 
 
 

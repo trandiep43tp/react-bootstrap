@@ -1,4 +1,6 @@
 import React, { Component} from 'react';
+import { connect } from 'react-redux';
+import { open_form, actDeleteItem, actItemEdit } from './../redux/actions/action';
 
 class Item extends Component{
     constructor(props){
@@ -9,14 +11,15 @@ class Item extends Component{
     }
 
     handleDelete(id){
-        this.props.onClickDelete(id);
+        this.props.itemDelete(id);
     }
 
     handleEdit(item){
-        this.props.onClickEdit(item);
+       this.props.itemEdit(item)
     }
 
     render(){
+        //console.log(this.props)
         let item=this.props.item;   //lấy dữ liệu từ component list        
         let elementLevel=<span className="label label-default">Small</span>;
         if(item.level===1){
@@ -39,7 +42,21 @@ class Item extends Component{
     }
 }
 
-export default Item;
+
+const mapDispatchtoProps = ( dispatch, ownProps) =>{    
+    return {
+       itemEdit: (item) =>{          
+          dispatch(open_form());
+          dispatch(actItemEdit(item));
+        },
+        itemDelete: (id) =>{
+            dispatch(actDeleteItem(id))
+        }
+    }
+}
+
+export default connect(null, mapDispatchtoProps) (Item);
+
 
 
 
